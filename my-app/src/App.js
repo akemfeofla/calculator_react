@@ -1,45 +1,109 @@
 import React from 'react';
-import './calculator/calculator.css';
+import './App.css';
+import { useState, useEffect } from 'react';
 
 function App() {
-  return (
-    <MainContainer>
-      <InputBox />
-      <Buttons>
-        <OperatorBtn value={'+'}>+</OperatorBtn>
-        <OperatorBtn value={'-'}>-</OperatorBtn>
-        <OperatorBtn value={'*'}>*</OperatorBtn>
-        <OperatorBtn value={'/'}>/</OperatorBtn>
-        <NumberBtn value={7}>7</NumberBtn>
-        <NumberBtn value={8}>8</NumberBtn>
-        <NumberBtn value={9}>9</NumberBtn>
-        <OperatorBtn value={'C'}>C</OperatorBtn>
-        <NumberBtn value={4}>4</NumberBtn>
-        <NumberBtn value={5}>5</NumberBtn>
-        <NumberBtn value={6}>6</NumberBtn>
-        <NumberBtn value={1}>1</NumberBtn>
-        <NumberBtn value={2}>2</NumberBtn>
-        <NumberBtn value={3}>3</NumberBtn>
-        <NumberBtn value={0}>0</NumberBtn>
-        <OperatorBtn value={'.'}>.</OperatorBtn>
-        <OperatorBtn value={'='}>=</OperatorBtn>
-      </Buttons>
-    </MainContainer>
-  
-  //컴포넌트 생성
-    const Welcome =(props)=>{
-      return <h2>Hello, {props.name}</h2>
-      
-      // 컴포넌트 사용
-      const App = ()=>{
-        return <div>
-          <Welcome name = '수영'/>
-          <Welcome name = '수영'/>
-          <Welcome name = '수영'/>
-        </div>
-      }
+  const [preState, setPreState] = useState('');
+  const [curState, setCurState] = useState('');
+  const [input, setInput] = useState('0');
+  const [operator, setOperator] = useState(null);
+  const [total, setTotal] = useState(false);
+
+  const inputNum = (e) => {
+    if (curState.includes('.') && e.target.innerText === '.') return;
+
+    if (total) {
+      setPreState('');
     }
+
+    curState
+      ? setCurState((pre) => +pre + e.target.innerText)
+      : setCurState(e.target.innerText);
+
+    setTotal(false);
+  };
+
+  useEffect(() => {
+    setInput(curState);
+  }, [curState]);
+
+  useEffect(() => {
+    setInput('0');
+  }, []);
+
+  const operatorType = (e) => {};
+
+  const equals = (e) => {};
+
+  const minusPlus = () => {};
+
+  const percent = () => {};
+
+  const reset = () => {};
+
+  return (
+    <div className="container">
+      <div className="wrapper">
+        <div className="screen">{input}</div>
+        <div className="btn light-gray" onClick={reset}>
+          C
+        </div>
+        <div className="btn light-gray" onClick={percent}>
+          %
+        </div>
+        <div className="btn light-gray" onClick={minusPlus}>
+          -/+
+        </div>
+        <div className="btn orange" onClick={operatorType}>
+          /
+        </div>
+        <div className="btn" onClick={inputNum}>
+          7
+        </div>
+        <div className="btn" onClick={inputNum}>
+          8
+        </div>
+        <div className="btn" onClick={inputNum}>
+          9
+        </div>
+        <div className="btn orange" onClick={operatorType}>
+          X
+        </div>
+        <div className="btn" onClick={inputNum}>
+          4
+        </div>
+        <div className="btn" onClick={inputNum}>
+          5
+        </div>
+        <div className="btn" onClick={inputNum}>
+          6
+        </div>
+        <div className="btn orange" onClick={operatorType}>
+          +
+        </div>
+        <div className="btn" onClick={inputNum}>
+          1
+        </div>
+        <div className="btn" onClick={inputNum}>
+          2
+        </div>
+        <div className="btn" onClick={inputNum}>
+          3
+        </div>
+        <div className="btn orange" onClick={operatorType}>
+          -
+        </div>
+        <div className="btn zero" onClick={inputNum}>
+          0
+        </div>
+        <div className="btn" onClick={inputNum}>
+          .
+        </div>
+        <div className="btn" onClick={equals}>
+          =
+        </div>
+      </div>
+    </div>
   );
 }
-
 export default App;
